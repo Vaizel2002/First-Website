@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motivation Universe ✦</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #080916;
+  --bg2: #11122b;
+  --text: #f6f3ff;
+  --muted: #b3b1ce;
+  --accent: #b69cff;
+  --accent2: #7d5cff;
+  --card: rgba(255,255,255,0.055);
+  --border: rgba(206,190,255,0.17);
+  --shadow: rgba(126,80,255,0.2);
+}
+
+body.light {
+  --bg: #f5f0ff;
+  --bg2: #e8ddff;
+  --text: #20163a;
+  --muted: #6c6285;
+  --accent: #7444d8;
+  --accent2: #986dff;
+  --card: rgba(255,255,255,0.7);
+  --border: rgba(100,65,170,0.18);
+  --shadow: rgba(126,80,255,0.13);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(104,64,192,.17), transparent 45%),
+    radial-gradient(ellipse at 80% 65%, rgba(57,88,202,.12), transparent 45%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  transition: background .4s, color .4s;
+  overflow-x: hidden;
+}
+
+button, a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  color: inherit;
+}
+
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: white;
+  opacity: .65;
+  animation: twinkle 3s infinite ease-in-out alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: .15; transform: scale(.7); }
+  to { opacity: .9; transform: scale(1.5); }
+}
+
+.ambient {
+  position: fixed;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .16;
+  z-index: -1;
+  pointer-events: none;
+  background: #8657ff;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+.ambient.one { top: 10%; left: -180px; }
+.ambient.two {
+  bottom: 0;
+  right: -180px;
+  background: #3869ff;
+  animation-delay: -7s;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(90px, 60px); }
+}
+
+nav {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 7%;
+  background: rgba(8,9,22,.56);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(16px);
+}
+
+body.light nav {
+  background: rgba(245,240,255,.75);
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: .95rem;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-size: .83rem;
+  transition: color .2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 50px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: transform .2s, background .2s;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg) scale(1.05);
+}
+
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 120px 8% 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.hero {
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.eyebrow {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: .72rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+h1, h2, h3, blockquote {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+h1 {
+  max-width: 900px;
+  font-size: clamp(3rem, 8vw, 6.6rem);
+  line-height: 1.07;
+  letter-spacing: -2px;
+  font-weight: 500;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg, #d8c9ff, #9c7bff, #79c6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-description {
+  max-width: 550px;
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 25px auto 32px;
+  font-size: 1rem;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 50px;
+  padding: 15px 25px;
+  cursor: pointer;
+  background: linear-gradient(110deg, #8d67ff, #6544db);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 0 30px var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 42px var(--shadow);
+}
+
+.button.secondary {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .72rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  animation: bob 2s infinite;
+}
+
+@keyframes bob {
+  50% { transform: translate(-50%, 7px); }
+}
+
+.section-heading {
+  max-width: 750px;
+  margin-bottom: 42px;
+}
+
+.section-heading h2 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.15;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.section-heading p {
+  max-width: 600px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 30px;
+  backdrop-filter: blur(12px);
+  transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  border-color: var(--accent);
+  box-shadow: 0 15px 40px var(--shadow);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 22px;
+}
+
+.card h3 {
+  font-size: 1.55rem;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: .92rem;
+}
+
+.card .small-label {
+  display: inline-block;
+  margin-top: 22px;
+  color: var(--accent);
+  font-size: .7rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.quote-section {
+  align-items: center;
+  text-align: center;
+}
+
+.quote-box {
+  width: min(850px, 100%);
+  padding: clamp(30px, 6vw, 70px);
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 28px;
+  box-shadow: 0 0 80px var(--shadow);
+}
+
+.quote-mark {
+  color: var(--accent);
+  font-family: Georgia, serif;
+  font-size: 5rem;
+  height: 65px;
+}
+
+blockquote {
+  font-size: clamp(1.8rem, 4.5vw, 3.4rem);
+  line-height: 1.35;
+  margin: 12px 0 25px;
+}
+
+.quote-author {
+  color: var(--muted);
+  margin-bottom: 28px;
+  font-size: .9rem;
+}
+
+#quoteMessage {
+  min-height: 30px;
+  color: var(--accent);
+  margin-top: 15px;
+  font-size: .85rem;
+}
+
+.progress-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.progress-card {
+  padding: 27px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.progress-card .number {
+  font-size: .75rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.progress-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.progress-card p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: .92rem;
+}
+
+.mantra {
+  text-align: center;
+  align-items: center;
+}
+
+.mantra h2 {
+  font-size: clamp(2.7rem, 6vw, 5rem);
+  line-height: 1.2;
+  font-weight: 500;
+  max-width: 950px;
+  margin-bottom: 25px;
+}
+
+.mantra p {
+  color: var(--muted);
+  max-width: 550px;
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+.footer {
+  padding: 30px 8%;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.footer span {
+  color: var(--accent);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 800px) {
+  nav { padding: 16px 5%; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: .73rem; }
+  .cards { grid-template-columns: 1fr; }
+  .progress-list { grid-template-columns: 1fr; }
+  section { padding: 110px 6% 70px; }
+  .card { padding: 25px; }
+}
+
+@media (max-width: 500px) {
+  .nav-links a { display: none; }
+  h1 { letter-spacing: -1px; }
+  .hero-description { font-size: .92rem; }
+  .button { padding: 13px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+
+<nav>
+  <a class="logo" href="#home">✦ MOTIVATION <span>UNIVERSE</span></a>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#mindset">Mindset</a>
+    <a href="#discipline">Discipline</a>
+    <a href="#quotes">Quotes</a>
+    <a href="#growth">Growth</a>
+  </div>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">☀️</button>
+</nav>
+
+<main>
+
+  <!-- SECTION 1: HOME -->
+  <section class="hero" id="home">
+    <div class="eyebrow reveal">✦ Your journey starts here ✦</div>
+
+    <h1 class="reveal">
+      Become who you<br>
+      <span class="gradient-text">know you can be.</span>
+    </h1>
+
+    <p class="hero-description reveal">
+      Hi, my name is Vaizel Stuart, 24 years old. I’m a developer in the making 💻, an anime lover, and someone who loves to laugh and have a good time. I’m all about learning, growing, and enjoying life along the way. ✨ I’ve also got some inspiring words for you, so take a moment, read them rq, and maybe you’ll find something you needed to hear. 🌌 Enjoy! A universe of reminders, dreams, and possibilities.
+      Take your time. Trust your journey. Keep becoming.
+      Your next chapter starts with the choices you make today.
+    </p>
+
+    <div class="hero-buttons reveal">
+      <a href="#mindset" class="button">Explore your universe ↓</a>
+      <a href="#quotes" class="button secondary">Find your inspiration ✦</a>
+    </div>
+
+    <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
+  </section>
+
+  <!-- SECTION 2: MINDSET -->
+  <section id="mindset">
+    <div class="section-heading reveal">
+      <div class="eyebrow">01 — The inner universe</div>
+      <h2>Your mindset shapes your <span class="gradient-text">world.</span></h2>
+      <p>
+        Before your life changes, the way you see yourself may need to change.
+        Give your mind something positive to believe in.
+      </p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-icon">🌌</div>
+        <h3>Think beyond fear</h3>
+        <p>
+          You don't need to know every step. You only need enough courage
+          to take the next one. Let curiosity be louder than your fear.
+        </p>
+        <span class="small-label">BELIEVE IN POSSIBILITY</span>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon">🌙</div>
+        <h3>Protect your peace</h3>
+        <p>
+          Not everything deserves your energy. Make room for people,
+          habits, and experiences that help you feel more like yourself.
+        </p>
+        <span class="small-label">CHOOSE YOUR ENERGY</span>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon">✨</div>
+        <h3>Be your own proof</h3>
+        <p>
+          Every promise you keep to yourself builds trust.
+          You don't have to announce your growth. Let your life reflect it.
+        </p>
+        <span class="small-label">BUILD SELF-TRUST</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECTION 3: DISCIPLINE -->
+  <section id="discipline">
+    <div class="section-heading reveal">
+      <div class="eyebrow">02 — The quiet work</div>
+      <h2>Dreams need <span class="gradient-text">action.</span></h2>
+      <p>
+        Motivation can get you started. Small, consistent actions help
+        you keep going, even on the days when you don't feel inspired.
+      </p>
+    </div>
+
+    <div class="progress-list">
+      <article class="progress-card reveal">
+        <div class="number">01 / SHOW UP</div>
+        <h3>Start before you're ready.</h3>
+        <p>
+          You can learn while you move. Make the first attempt imperfect,
+          then improve it one step at a time.
+        </p>
+      </article>
+
+      <article class="progress-card reveal">
+        <div class="number">02 / STAY CONSISTENT</div>
+        <h3>Small steps still count.</h3>
+        <p>
+          Fifteen focused minutes are better than waiting for the perfect
+          day. Repeated effort can become a powerful habit.
+        </p>
+      </article>
+
+      <article class="progress-card reveal">
+        <div class="number">03 / KEEP LEARNING</div>
+        <h3>Let mistakes teach you.</h3>
+        <p>
+          A mistake is information, not your identity. Understand what
+          happened, adjust your approach, and try again.
+        </p>
+      </article>
+
+      <article class="progress-card reveal">
+        <div class="number">04 / RESPECT YOUR PACE</div>
+        <h3>Rest without giving up.</h3>
+        <p>
+          You are a human being, not a machine. Recovery is part of
+          progress. A slower day does not erase your hard work.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECTION 4: RANDOM QUOTES -->
+  <section class="quote-section" id="quotes">
+    <div class="section-heading reveal">
+      <div class="eyebrow">03 — Words for your journey</div>
+      <h2>Take what you <span class="gradient-text">need today.</span></h2>
+      <p>Sometimes one sentence is enough to change the way you see a day.</p>
+    </div>
+
+    <div class="quote-box reveal">
+      <div class="quote-mark">“</div>
+
+      <blockquote id="quoteText">
+        You do not have to see the whole staircase. Just take the first step.
+      </blockquote>
+
+      <div class="quote-author" id="quoteAuthor">A reminder for your journey</div>
+
+      <button class="button" id="newQuote">Give me another reminder ✦</button>
+
+      <p id="quoteMessage" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: GROWTH -->
+  <section id="growth">
+    <div class="section-heading reveal">
+      <div class="eyebrow">04 — Becoming</div>
+      <h2>Make space for <span class="gradient-text">your growth.</span></h2>
+      <p>
+        Your journey doesn't have to look like anybody else's.
+        Give yourself permission to learn, change, and begin again.
+      </p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-icon">📖</div>
+        <h3>Learn something</h3>
+        <p>
+          Read a page. Practice a skill. Ask a question.
+          Every little lesson adds something to the person you're becoming.
+        </p>
+        <span class="small-label">FEED YOUR CURIOSITY</span>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon">🌱</div>
+        <h3>Grow through change</h3>
+        <p>
+          You are allowed to outgrow old habits, old fears, and old versions
+          of yourself. Growth often starts with an honest decision.
+        </p>
+        <span class="small-label">GIVE YOURSELF ROOM</span>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon">☀️</div>
+        <h3>Notice your progress</h3>
+        <p>
+          Celebrate the little wins. Remember what used to feel impossible
+          and recognize how far your effort has already brought you.
+        </p>
+        <span class="small-label">YOU ARE MOVING FORWARD</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECTION 6: CLOSING -->
+  <section class="mantra" id="final">
+    <div class="eyebrow reveal">✦ A final reminder ✦</div>
+
+    <h2 class="reveal">
+      Your story is still being <span class="gradient-text">written.</span>
+    </h2>
+
+    <p class="reveal">
+      You have time to learn. Time to change. Time to discover what matters
+      to you. Don't let one difficult chapter convince you that the whole
+      story will be difficult.
+    </p>
+
+    <a href="#home" class="button reveal">Return to the stars ↑</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Made for the journey, not the destination. <span>✦</span>
+  <br><br>
+  MOTIVATION UNIVERSE · Keep becoming.
+</footer>
+
+<script>
+/* Create the magical star background */
+const starsContainer = document.getElementById("stars");
+
+for (let i = 0; i < 110; i++) {
+  const star = document.createElement("span");
+  star.className = "star";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.animationDelay = Math.random() * 4 + "s";
+  star.style.animationDuration = (2 + Math.random() * 4) + "s";
+  starsContainer.appendChild(star);
+}
+
+/* Light and dark mode */
+const themeToggle = document.getElementById("themeToggle");
+
+if (localStorage.getItem("motivationTheme") === "light") {
+  document.body.classList.add("light");
+  themeToggle.textContent = "🌙";
+}
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+
+  const isLight = document.body.classList.contains("light");
+
+  themeToggle.textContent = isLight ? "🌙" : "☀️";
+  localStorage.setItem("motivationTheme", isLight ? "light" : "dark");
+});
+
+/* Random motivational reminders */
+const quotes = [
+  {
+    text: "You do not have to see the whole staircase. Just take the first step.",
+    author: "A reminder for your journey"
+  },
+  {
+    text: "You are allowed to be a beginner at something you want to be great at.",
+    author: "A reminder to keep learning"
+  },
+  {
+    text: "Small progress is still progress. Keep going.",
+    author: "A reminder for difficult days"
+  },
+  {
+    text: "Don't compare your chapter one to someone else's chapter twenty.",
+    author: "A reminder to respect your pace"
+  },
+  {
+    text: "Become so focused on your growth that comparison loses its place.",
+    author: "A reminder to look inward"
+  },
+  {
+    text: "One day, the things you're practicing will be the things you do naturally.",
+    author: "A reminder about consistency"
+  },
+  {
+    text: "You can begin again without being ashamed of where you started.",
+    author: "A reminder that it's never too late"
+  },
+  {
+    text: "Your future self is built by the little choices you make today.",
+    author: "A reminder to take action"
+  },
+  {
+    text: "Rest if you need to. Just remember that your dreams are still worth pursuing.",
+    author: "A reminder to be kind to yourself"
+  },
+  {
+    text: "You don't need everyone's approval to build a life that feels right to you.",
+    author: "A reminder to trust yourself"
+  },
+  {
+    text: "The goal isn't to be perfect. The goal is to keep becoming.",
+    author: "A reminder for your universe"
+  }
+];
+
+const quoteText = document.getElementById("quoteText");
+const quoteAuthor = document.getElementById("quoteAuthor");
+const quoteMessage = document.getElementById("quoteMessage");
+const newQuote = document.getElementById("newQuote");
+
+let previousQuote = -1;
+
+newQuote.addEventListener("click", () => {
+  let nextIndex;
+
+  do {
+    nextIndex = Math.floor(Math.random() * quotes.length);
+  } while (quotes.length > 1 && nextIndex === previousQuote);
+
+  previousQuote = nextIndex;
+
+  quoteText.style.opacity = "0";
+
+  setTimeout(() => {
+    quoteText.textContent = quotes[nextIndex].text;
+    quoteAuthor.textContent = quotes[nextIndex].author;
+    quoteText.style.opacity = "1";
+  }, 180);
+
+  quoteMessage.textContent = "A little reminder, just for you ✨";
+});
+
+/* Reveal sections as you scroll */
+const revealElements = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealElements.forEach((element) => observer.observe(element));
+} else {
+  revealElements.forEach((element) => element.classList.add("visible"));
+}
+</script>
+
+</body>
+</html>
